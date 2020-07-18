@@ -1,6 +1,9 @@
 // selfutil.cpp : 
 //
 
+//#define SELFUTIL_WINDOWS
+#define SELFUTIL_LINUX
+
 #include "pch.h"
 
 #include "selfutil.h"
@@ -59,7 +62,7 @@ bool SelfUtil::Load(string filePath)
 	data.resize(fileSize);
 
 	FILE *f=nullptr;
-	fopen_s(&f, filePath.c_str(), "rb");
+	f = fopen(filePath.c_str(), "rb");
 	if(f) {
 		fread(&data[0], 1,fileSize, f);
 		fclose(f);
@@ -132,7 +135,7 @@ bool SelfUtil::SaveToELF(string savePath)
 
 
 	FILE *f=nullptr;
-	fopen_s(&f, savePath.c_str(), "wb");
+	f = fopen(savePath.c_str(), "wb");
 	if(f) {
 		fwrite(pd, 1,saveSize, f);
 		fclose(f);
